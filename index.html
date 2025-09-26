@@ -17,7 +17,8 @@
     <script src="https://unpkg.com/feather-icons"></script>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/path/style.css">
+
 </head>
 <body class="antialiased text-slate-800">
 
@@ -41,7 +42,7 @@
 
                 <!-- Header Icons -->
                 <div class="flex items-center space-x-4">
-                    <button class="text-slate-500 hover:text-indigo-600 transition"><i data-feather="search"></i></button>
+                    <button id="open-search-btn" class="text-slate-500 hover:text-indigo-600 transition"><i data-feather="search"></i></button> 
                     <button class="text-slate-500 hover:text-indigo-600 transition"><i data-feather="user"></i></button>
                     <button id="open-cart-btn" class="relative text-slate-500 hover:text-indigo-600 transition">
                         <i data-feather="shopping-cart"></i>
@@ -54,23 +55,38 @@
         <!-- Main Content -->
         <main class="container mx-auto px-4 py-8 md:py-12">
             <!-- Hero Section / Flash Sale Banner -->
-            <section class="bg-gradient-to-r from-slate-900 to-slate-700 rounded-lg text-white p-8 md:p-12 mb-12 flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 text-center md:text-left mb-8 md:mb-0">
-                    <h1 class="text-4xl lg:text-5xl font-extrabold mb-4 leading-tight">Mega Electronics Flash Sale!</h1>
-                    <p class="text-lg text-slate-300 mb-6">Up to 70% off on your favorite gadgets. Limited time only!</p>
-                    <div id="countdown-timer" class="flex justify-center md:justify-start space-x-4 text-center mb-8">
+            <section class="relative rounded-lg text-white mb-12 overflow-hidden">
+                <!-- Image Slider Container (Full Background) -->
+                <div class="absolute inset-0 w-full h-full">
+                    <img src="https://placehold.co/1200x500/1e293b/ffffff?text=Top+Deals" class="hero-slide absolute w-full h-full object-cover transition-opacity duration-1000 ease-in-out opacity-100" alt="Flash Sale Products">
+                    <img src="https://placehold.co/1200x500/3b82f6/ffffff?text=Gadgets" class="hero-slide absolute w-full h-full object-cover transition-opacity duration-1000 ease-in-out opacity-0" alt="Gadget Deals">
+                    <img src="https://placehold.co/1200x500/10b981/ffffff?text=Fashion" class="hero-slide absolute w-full h-full object-cover transition-opacity duration-1000 ease-in-out opacity-0" alt="Fashion Deals">
+                </div>
+                <!-- Overlay -->
+                <div class="absolute inset-0 bg-black/60"></div>
+
+                <!-- Content -->
+                <div class="relative z-10 min-h-[450px] flex flex-col justify-center items-center text-center p-8 md:p-12">
+                    <h1 class="text-4xl lg:text-6xl font-extrabold mb-4 leading-tight">Mega Electronics Flash Sale!</h1>
+                    <p class="text-lg lg:text-xl text-slate-200 mb-6 max-w-2xl">Up to 70% off on your favorite gadgets. Limited time only!</p>
+                    <div id="countdown-timer" class="flex justify-center space-x-2 md:space-x-4 text-center mb-8">
                         <!-- Timer will be injected here -->
                     </div>
-                    <a href="#products" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 inline-block">Shop Now</a>
+                    <a href="#flash-deals" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 inline-block">Shop Flash Deals</a>
                 </div>
-                <div class="md:w-1/2 flex justify-center">
-                    <img src="https://placehold.co/500x300/1e293b/ffffff?text=Top+Deals" class="rounded-lg shadow-2xl" alt="Flash Sale Products">
+            </section>
+
+            <!-- Flash Deals Section -->
+            <section id="flash-deals" class="mb-12">
+                <h2 class="text-3xl font-bold text-center mb-8">Today's Flash Deals</h2>
+                <div id="flash-deal-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <!-- Flash deal products will be injected here -->
                 </div>
             </section>
 
             <!-- Products Section -->
             <section id="products">
-                <h2 class="text-3xl font-bold text-center mb-4">Our Products</h2>
+                <h2 class="text-3xl font-bold text-center mb-4">All Products</h2>
                 <p class="text-center text-slate-500 mb-8 max-w-2xl mx-auto">Discover our curated selection of high-quality products. Filter by category to find exactly what you need.</p>
                 
                 <!-- Category Filters -->
@@ -120,7 +136,7 @@
                     </div>
                 </div>
                 <div class="border-t border-slate-700 mt-8 pt-6 text-center text-sm text-slate-400">
-                    <p>&copy; 2025 FlashCart. All Rights Reserved.</p>
+                    <p>&copy; <span id="current-year">2025</span> FlashCart. All Rights Reserved.</p>
                 </div>
             </div>
         </footer>
@@ -162,8 +178,19 @@
         <p>🎉 Order placed successfully!</p>
     </div>
 
+    <!-- Search Modal -->
+    <div id="search-modal" class="fixed inset-0 bg-slate-900 bg-opacity-70 z-50 hidden flex items-start justify-center pt-20 backdrop-blur-sm">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-2xl relative mx-4" id="search-modal-content">
+            <div class="p-4 flex items-center border-b">
+                <i data-feather="search" class="text-slate-400 mr-3"></i>
+                <input type="search" id="search-input" placeholder="Search for products..." class="w-full focus:outline-none text-lg bg-transparent">
+                <button id="close-search-btn" class="text-slate-500 hover:text-slate-800 transition ml-4"><i data-feather="x" class="h-6 w-6"></i></button>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Custom JavaScript -->
-    <script src="script.js"></script>
+    <script src="/path/script.js"></script>
 </body>
 </html>

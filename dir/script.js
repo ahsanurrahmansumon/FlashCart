@@ -1,4 +1,4 @@
- document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => {
 
             // --- STATE MANAGEMENT ---
             const state = {
@@ -23,10 +23,6 @@
             const emptyCartMessage = document.getElementById('empty-cart-message');
             const checkoutBtn = document.getElementById('checkout-btn');
             const toast = document.getElementById('toast');
-            const searchModal = document.getElementById('search-modal');
-            const openSearchBtn = document.getElementById('open-search-btn');
-            const closeSearchBtn = document.getElementById('close-search-btn');
-            const searchInput = document.getElementById('search-input');
             const flashDealsSection = document.getElementById('flash-deals');
             const productsSection = document.getElementById('products');
 
@@ -220,7 +216,7 @@
 
                 // --- WhatsApp Integration ---
                 // IMPORTANT: Replace with your WhatsApp number (including country code, without '+')
-                const phoneNumber = "1234567890"; 
+                const phoneNumber = "+8801310227710"; 
                 
                 let message = "Hello! I'd like to place an order:\n\n";
                 
@@ -312,54 +308,6 @@
                 }
             };
 
-            // --- SEARCH LOGIC ---
-            const toggleSearchModal = (show) => {
-                if (show) {
-                    searchModal.classList.remove('hidden');
-                    searchInput.focus();
-                } else {
-                    searchModal.classList.add('hidden');
-                    searchInput.value = '';
-                    // Restore default view
-                    flashDealsSection.classList.remove('hidden');
-                    productsSection.querySelector('h2').textContent = 'All Products';
-                    productsSection.querySelector('p').classList.remove('hidden');
-                    categoryFilters.classList.remove('hidden');
-                    renderProducts();
-                }
-            };
-
-            const handleSearch = (e) => {
-                const searchTerm = e.target.value.toLowerCase().trim();
-                
-                flashDealsSection.classList.add('hidden');
-                categoryFilters.classList.add('hidden');
-                productsSection.querySelector('p').classList.add('hidden');
-
-                if (searchTerm === '') {
-                    productsSection.querySelector('h2').textContent = 'All Products';
-                    renderProducts();
-                    return;
-                }
-
-                const filteredProducts = state.products.filter(product => 
-                    product.name.toLowerCase().includes(searchTerm)
-                );
-                
-                productsSection.querySelector('h2').textContent = `${filteredProducts.length} results for "${e.target.value}"`;
-
-                productGrid.innerHTML = '';
-                if (filteredProducts.length > 0) {
-                    filteredProducts.forEach(product => {
-                        const card = createProductCardHTML(product);
-                        productGrid.insertAdjacentHTML('beforeend', card);
-                    });
-                } else {
-                    productGrid.innerHTML = `<p class="text-center text-slate-500 col-span-full">No products found matching your search.</p>`;
-                }
-                feather.replace();
-            };
-
             // --- HERO SLIDER ---
             const startHeroSlider = () => {
                 const slides = document.querySelectorAll('.hero-slide');
@@ -432,14 +380,6 @@
                 cartOverlay.addEventListener('click', () => toggleCart(false));
                 cartItemsContainer.addEventListener('click', handleCartItemsClick);
                 checkoutBtn.addEventListener('click', handleCheckout);
-                openSearchBtn.addEventListener('click', () => toggleSearchModal(true));
-                closeSearchBtn.addEventListener('click', () => toggleSearchModal(false));
-                searchInput.addEventListener('input', handleSearch);
-                searchModal.addEventListener('click', (e) => {
-                    if (e.target === searchModal) {
-                        toggleSearchModal(false);
-                    }
-                });
             };
 
             // Run the app
